@@ -1,0 +1,43 @@
+{% extends 'forum/index.html' %}
+
+{% block content %}
+    {#    <a href="{% url 'forum:login' %}">Есть аккаунт?</a>#}
+    {#    <form method="post" action="{% url 'forum:register' %}">#}
+    {#        {% csrf_token %}#}
+    {#        {% for field in form %}#}
+    {#            <label for="check_{{ forloop.counter }}">{{ forloop.counter }}</label>#}
+    {#            <input type="checkbox" name="name_{{ forloop.counter }}"#}
+    {#                   id="check_{{ forloop.counter }}">#}
+    {#            <p>#}
+    {#                <label for="">{{ field.label }}</label>#}
+    {#                {{ field }}#}
+    {#                {% if field.help_text %}#}
+    {#                    <small style="color: grey">{{ field.help_text }}</small>#}
+    {#                {% endif %}#}
+    {#                {% if field.errors %}#}
+    {#                    {% for error in field.errors %}#}
+    {#                        <p style="color: red">{{ error }}</p>#}
+    {#                    {% endfor %}#}
+    {#                {% endif %}#}
+    {#            </p>#}
+    {#        {% endfor %}#}
+    {#        <label for="">Потверждать почту</label>#}
+    {#        <input type="checkbox" name="check_mail">#}
+    {#        <input type="submit" class="btn btn-success" value="Sign up">#}
+    {#        <input class="btn btn-danger" type="reset" value="reset">#}
+    <!--<button>Sign up</button>-->
+    </form>
+
+    {{ form }}
+
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.label }}
+            {{ field }}
+        </div>
+    {% endfor %}
+    {#    {{ form.as_p }}#}
+<button type="submit" class="btn btn-primary">Save</button>
+<button type="submit" class="btn btn-primary">Cancel</button>
+
+{% endblock %}

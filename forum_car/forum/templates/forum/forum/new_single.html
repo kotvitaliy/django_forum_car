@@ -1,0 +1,36 @@
+{% extends 'forum/index.html' %}
+{% block desc %}{{ new.description }}{% endblock desc %}
+{% block keywords %}{{ new.keywords }}{% endblock keywords %}
+{% block title %}{{ new.title }}{% endblock title %}
+
+{% block content %}
+    <h1>{{ new.title }}</h1>
+    <p>{{ new.text|safe }}</p><hr>
+
+    Категория - {{ new.category }}<br>
+    Теги - {% for tag in new.tags.all %}
+                 {{ tag.title }}
+            {% endfor %} <br>
+    Автор: {{ new.user }} - {{ new.created }}  <hr>
+
+    <h4>Комментарии</h4>
+     {% for comment in comments %}
+        Пользователь - {{ comment.user }}<br>
+        {{ comment.text }} <br>
+        Добавлен - {{ comment.created }}<br><br>
+     {% endfor %}
+{#    {% for comment in new.comments_set.all %}#}
+{#        Пользователь - {{ comment.user }}<br>#}
+{#        {{ comment.text }} <br>#}
+{#        Добавлен - {{ comment.created }}<br><br>#}
+{#    {% endfor %}#}
+    {% if user.is_active %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Отправить</button>
+        </form>
+    {% else %}
+        <h4>Что бы оставить комментарий авторизуйтесь</h4>
+    {% endif %}
+{% endblock content %}

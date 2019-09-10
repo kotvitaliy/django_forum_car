@@ -1,0 +1,43 @@
+{% extends "forum/index.html" %}
+{% load static %}
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+{% block content %}
+  <div class="product-detail">
+    <div class="col-sm-4">
+      <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.jpg"%}{% endif %}" class="img-responsive">
+    </div>
+    <div class="col-sm-8">
+      <h1>{{ product.name }}</h1>
+      <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+      <p class="model">
+        {{ product.model }}
+      </p>
+      <span>
+        {{ product.description | linebreaks}}
+      </span>
+      <h4>Комментарии</h4>
+<!--     {% for comment in comments %}-->
+<!--        Пользователь - {{ comment.user }}<br>-->
+<!--        {{ comment.text }} <br>-->
+<!--        Добавлен - {{ comment.created }}<br><br>-->
+<!--     {% endfor %}-->
+    {% for comment in new.comments_set.all %}
+        Пользователь - {{ comment.user }}<br>
+        {{ comment.text }} <br>
+        Добавлен - {{ comment.created }}<br><br>
+    {% endfor %}
+    {% if user.is_active %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Отправить</button>
+        </form>
+    {% else %}
+        <h4>Чтобы оставить комментарий авторизуйтесь</h4>
+    {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
